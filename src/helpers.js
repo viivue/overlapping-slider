@@ -13,7 +13,6 @@ export function getNextIndex(context){
             newIndex = context.slideCount - 1;
         }
     }
-
     return newIndex;
 }
 

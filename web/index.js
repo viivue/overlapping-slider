@@ -15,3 +15,13 @@ app.innerHTML = homeHtml;
  * Global init
  */
 OverlappingSlider.init();
+console.log(OverlappingSliderController)
+const slider1 = OverlappingSlider.get('slider-1');
+
+
+document.querySelector('[data-prev]').addEventListener('click', () => {
+    slider1.previous();
+})
+document.querySelector('[data-next]').addEventListener('click', () => {
+    slider1.next();
+})

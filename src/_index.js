@@ -1,5 +1,5 @@
 import {log, setCSS, uniqueId} from "./utils";
-import {getSlideByIndex} from "@/helpers";
+import {getNextIndex, getPreviousIndex, getSlideByIndex} from "@/helpers";
 
 /**
  * Private class Slider
@@ -16,8 +16,6 @@ class Slider{
 
         // init
         this.initialize();
-
-        console.log(this)
     }
 
     initialize(){
@@ -113,11 +111,13 @@ class Slider{
     }
 
     next(){
-
+        this.currentIndex = getNextIndex(this);
+        console.log(this.currentIndex)
     }
 
     previous(){
-
+        this.currentIndex = getPreviousIndex(this);
+        console.log(this.currentIndex)
     }
 }
 
