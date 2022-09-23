@@ -110,14 +110,26 @@ class Slider{
         })
     }
 
+    active(index){
+        this.slides.forEach((slide, i) => {
+            if(index === i){
+                this.select(i);
+            }else{
+                this.deSelect(i);
+            }
+        })
+    }
+
     next(){
         this.currentIndex = getNextIndex(this);
         console.log(this.currentIndex)
+        this.active(this.currentIndex);
     }
 
     previous(){
         this.currentIndex = getPreviousIndex(this);
         console.log(this.currentIndex)
+        this.active(this.currentIndex);
     }
 }
 

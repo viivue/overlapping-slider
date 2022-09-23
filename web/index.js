@@ -15,13 +15,19 @@ app.innerHTML = homeHtml;
  * Global init
  */
 OverlappingSlider.init();
-console.log(OverlappingSliderController)
-const slider1 = OverlappingSlider.get('slider-1');
 
+document.querySelectorAll('[data-prev]').forEach(button => {
+    button.addEventListener('click', e => {
+        const id = button.getAttribute('data-prev');
+        const slider = OverlappingSlider.get(id);
+        slider.previous();
+    });
+});
 
-document.querySelector('[data-prev]').addEventListener('click', () => {
-    slider1.previous();
-})
-document.querySelector('[data-next]').addEventListener('click', () => {
-    slider1.next();
-})
+document.querySelectorAll('[data-next]').forEach(button => {
+    button.addEventListener('click', e => {
+        const id = button.getAttribute('data-next');
+        const slider = OverlappingSlider.get(id);
+        slider.next();
+    });
+});
