@@ -1,25 +1,26 @@
 {
-  "name": "webpack-library-boilerplate",
-  "prettyName": "Webpack Library Boilerplate",
-  "codeName": "WebpackLibrary",
+  "name": "overlapping-slider",
+  "prettyName": "Overlapping Slider",
+  "codeName": "OverlappingSlider",
   "version": "0.0.1",
-  "description": "A boilerplate to build JavaScript library with ES6 module and UMD version.",
-  "homepage": "https://github.com/phucbm/webpack-library-boilerplate",
+  "description": "Image slider with overlapping effect.",
+  "homepage": "https://github.com/viivue/overlapping-slider",
   "repository": {
     "type": "git",
-    "url": "git@github.com:phucbm/webpack-library-boilerplate"
+    "url": "git@github.com:viivue/overlapping-slider"
   },
   "author": {
     "name": "phucbm",
     "url": "https://github.com/phucbm"
   },
   "keywords": [
-    "phucbm",
+    "viivue",
+    "overlapping-slider",
     "javascript",
     "es6"
   ],
   "license": "MIT",
-  "main": "./dist/webpack-library-boilerplate.module.js",
+  "main": "./dist/overlapping-slider.module.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
     "build-umd": "cross-env NODE_ENV=production webpack --config config/webpack.umd.js",
