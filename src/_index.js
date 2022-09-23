@@ -124,36 +124,42 @@ class Slider{
 /**
  * Private class Slider Controller
  */
-class SliderController{
+class OverlappingSliderController{
     constructor(){
-        this.sliders = [];
+        this.instances = [];
     }
 
-    add(slider){
-        this.sliders.push(slider);
+    add(instance){
+        this.instances.push(instance);
     }
 
     get(id){
-        return this.sliders.filter(slider => slider.id === id)[0];
+        return this.instances.filter(instance => instance.id === id)[0];
     }
 }
 
 /**
  * Public data
- * access via window.OverlappingSliderData
+ * access via window.OverlappingSliderController
  */
-window.OverlappingSliderData = new SliderController();
+window.OverlappingSliderController = new OverlappingSliderController();
 
 /**
- * Public methods
+ * Public library object
+ * access via window.OverlappingSlider
  */
-window.OverlappingSlider = window.OverlappingSlider || {};
+window.OverlappingSlider = {
+    // init new instances
+    init: (options = {}) => {
+        const selector = options.selector || '[data-overlapping-slider]';
 
-// init new sliders
-OverlappingSlider.init = ({selector = '[data-overlapping-slider]'} = {}) => {
-    document.querySelectorAll(selector).forEach(el => window.OverlappingSliderData.add(new Slider({el})));
+        // init with selector
+        document.querySelectorAll(selector).forEach(el => {
+            window.OverlappingSliderController.add(new Slider({el, ...options}));
+        });
+    },
+    // Get instance object by ID
+    get: id => window.OverlappingSliderController.get(id)
 };
-OverlappingSlider.init();
 
-// Get slider object by ID
-OverlappingSlider.get = id => window.OverlappingSliderData.get(id);
+window.OverlappingSlider.init();
