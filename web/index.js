@@ -1,6 +1,7 @@
 import './styles/index.scss'
+import '@/_index'
 import homeHtml from "./html/home.html";
-import {OverlappingSlider} from "@/_index";
+
 import {gsap} from "gsap";
 import Flip from "gsap/Flip";
 
@@ -13,4 +14,4 @@ app.innerHTML = homeHtml;
 /**
  * Global init
  */
-document.querySelectorAll('[data-overlapping-slider]').forEach(el => new OverlappingSlider({el}));
+OverlappingSlider.init();

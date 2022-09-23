@@ -1,6 +1,10 @@
-import {log, setCSS} from "./utils";
+import {log, setCSS, uniqueId} from "./utils";
+import {getSlideByIndex} from "@/helpers";
 
-export class OverlappingSlider{
+/**
+ * Private class Slider
+ */
+class Slider{
     constructor(options){
         this._class = {};
         this._attr = {
@@ -20,6 +24,7 @@ export class OverlappingSlider{
         // setup
         this.setupData();
         this.setupCSS();
+        this.select(this.options.activeSlide);
     }
 
     setupData(){
@@ -30,6 +35,9 @@ export class OverlappingSlider{
 
                 // size
                 aspectRatio: '1280/768', // CSS aspect ratio of each slide
+
+                loop: true,
+                activeSlide: 0, // slide index
 
                 // events
                 onBeforeInit: (data) => {
@@ -44,9 +52,15 @@ export class OverlappingSlider{
             return;
         }
 
+        this.id = this.options.el.getAttribute(this._attr.container);
+        if(!this.id){
+            this.id = uniqueId('slider-');
+        }
+
         this.wrapper = this.options.el;
         this.slides = this.options.el.querySelectorAll(':scope > *');
         this.slideCount = this.slides.length;
+        this.currentIndex = this.options.activeSlide;
     }
 
     setupCSS(){
@@ -58,20 +72,88 @@ export class OverlappingSlider{
 
         // slides
         this.slides.forEach((slide, index) => {
+            // base CSS
             setCSS(slide, {
                 position: 'absolute',
-                top: '0',
-                left: '0',
                 width: '100%',
                 height: '100%',
-                'z-index': `${this.slideCount - index}`
+                top: '0',
+                left: '0',
             });
+
+            // animation CSS
+            if(index === this.options.activeSlide){
+                this.select(index);
+            }else{
+                this.deSelect(index);
+            }
         });
+    }
+
+    select(index){
+        const slide = getSlideByIndex(this, index);
+
+        // active CSS
+        setCSS(slide, {
+            top: '0',
+            left: '0',
+            'z-index': '2'
+        })
+    }
+
+    deSelect(index){
+        const slide = getSlideByIndex(this, index);
+
+        // active CSS
+        setCSS(slide, {
+            top: '20px',
+            left: '20px',
+            'z-index': '1'
+        })
+    }
+
+    next(){
+
+    }
+
+    previous(){
+
     }
 }
 
+/**
+ * Private class Slider Controller
+ */
+class SliderController{
+    constructor(){
+        this.sliders = [];
+    }
+
+    add(slider){
+        this.sliders.push(slider);
+    }
+
+    get(id){
+        return this.sliders.filter(slider => slider.id === id)[0];
+    }
+}
 
 /**
- * Global init
+ * Public data
+ * access via window.OverlappingSliderData
  */
-document.querySelectorAll('[data-overlapping-slider]').forEach(el => new OverlappingSlider({el}));
+window.OverlappingSliderData = new SliderController();
+
+/**
+ * Public methods
+ */
+window.OverlappingSlider = window.OverlappingSlider || {};
+
+// init new sliders
+OverlappingSlider.init = ({selector = '[data-overlapping-slider]'} = {}) => {
+    document.querySelectorAll(selector).forEach(el => window.OverlappingSliderData.add(new Slider({el})));
+};
+OverlappingSlider.init();
+
+// Get slider object by ID
+OverlappingSlider.get = id => window.OverlappingSliderData.get(id);
