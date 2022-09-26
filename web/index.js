@@ -13,18 +13,24 @@ app.innerHTML = homeHtml;
  */
 OverlappingSlider.init();
 
-document.querySelectorAll('[data-prev]').forEach(button => {
+/**
+ * Demo methods
+ */
+// select
+document.querySelectorAll('[data-select]').forEach(button => {
     button.addEventListener('click', e => {
-        const id = button.getAttribute('data-prev');
+        const id = button.getAttribute('data-id');
         const slider = OverlappingSlider.get(id);
-        slider.previous();
-    });
-});
-
-document.querySelectorAll('[data-next]').forEach(button => {
-    button.addEventListener('click', e => {
-        const id = button.getAttribute('data-next');
-        const slider = OverlappingSlider.get(id);
-        slider.next();
+        const select = button.getAttribute('data-select');
+        switch(select){
+            case 'prev':
+                slider.previous();
+                break;
+            case 'next':
+                slider.next();
+                break;
+            default:
+                slider.select(parseInt(select));
+        }
     });
 });
