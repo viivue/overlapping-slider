@@ -1,5 +1,6 @@
 import {log, setCSS, uniqueId, getNextIndex, getPreviousIndex, isGoingForward} from "./utils";
-import {getSlideByIndex, setZIndex} from "./helpers";
+import {getSlideByIndex} from "./helpers";
+import {slideBackward, slideForward} from "@/animation";
 
 
 /**
@@ -35,14 +36,16 @@ class Slider{
                 // size
                 aspectRatio: '1280/768', // CSS aspect ratio of each slide
 
+                // style
+                offsetX: 23,
+                offsetY: 23,
+                scale: .7,
+
                 loop: true,
                 activeSlide: 0, // slide index
 
                 // events
-                onBeforeInit: (data) => {
-                },
-                onAfterInit: (data) => {
-                },
+                //onBeforeInit: (data) => {},
             }, ...this.originalOptions
         };
 
@@ -66,7 +69,8 @@ class Slider{
         // wrapper
         setCSS(this.wrapper, {
             position: 'relative',
-            'aspect-ratio': this.options.aspectRatio
+            aspectRatio: this.options.aspectRatio,
+            marginBottom: `${this.options.offsetY}px`,
         });
 
         // slides
@@ -75,17 +79,17 @@ class Slider{
             setCSS(slide, {
                 position: 'absolute',
                 width: '100%',
-                height: '100%',
-                top: '20px',
-                left: '20px',
+                aspectRatio: this.options.aspectRatio,
+                top: `${this.options.offsetY}px`,
+                left: `${this.options.offsetX}px`,
                 transformOrigin: 'top left',
                 zIndex: `${this.slideCount - index}`
             });
         });
     }
 
-    select(index){
-        this.direction = isGoingForward(this.currentIndex, index);
+    select(index, direction = undefined){
+        this.direction = typeof direction === 'boolean' ? direction : isGoingForward(this.currentIndex, index);
         this.currentIndex = index;
 
         const slide = getSlideByIndex(this, index);
@@ -93,57 +97,20 @@ class Slider{
             ? getSlideByIndex(this, getPreviousIndex(this.slideCount, this.currentIndex, this.options.loop))
             : getSlideByIndex(this, getNextIndex(this.slideCount, this.currentIndex, this.options.loop));
 
-        // active CSS
-        const tl = gsap.timeline();
+        // animate
         if(this.direction){
-            tl.addLabel('hidePrevSlide');
-            tl.set(prevSlide, {transformOrigin: 'top left'})
-            tl.to(prevSlide, {
-                top: '-20px',
-                left: '-20px',
-                scale: .7,
-                onComplete: () => setZIndex(this)
-            });
-            tl.addLabel('movePrevSlideToBack');
-            tl.to(prevSlide, {
-                top: '20px',
-                left: '20px',
-                scale: 1
-            });
-
-            tl.addLabel('showActiveSlide', 'movePrevSlideToBack');
-            tl.to(slide, {
-                top: '0',
-                left: '0',
-            }, 'showActiveSlide');
+            slideForward(this, prevSlide, slide);
         }else{
-            tl.addLabel('hidePrevSlide');
-            tl.to(prevSlide, {
-                top: '20px',
-                left: '20px',
-            });
-
-            tl.addLabel('showActiveSlide', 'hidePrevSlide');
-            tl.to(slide, {
-                top: '-20px',
-                left: '-20px',
-                scale: .7,
-                onComplete: () => setZIndex(this)
-            }, 'showActiveSlide');
-            tl.to(slide, {
-                top: '0',
-                left: '0',
-                scale: 1,
-            });
+            slideBackward(this, prevSlide, slide);
         }
     }
 
     next(){
-        this.select(getNextIndex(this.slideCount, this.currentIndex, this.options.loop));
+        this.select(getNextIndex(this.slideCount, this.currentIndex, this.options.loop), true);
     }
 
     previous(){
-        this.select(getPreviousIndex(this.slideCount, this.currentIndex, this.options.loop));
+        this.select(getPreviousIndex(this.slideCount, this.currentIndex, this.options.loop), false);
     }
 }
 
