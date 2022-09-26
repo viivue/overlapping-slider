@@ -33,10 +33,10 @@ class Slider{
                 // selectors
                 el: document.querySelector(`[${this._attr.container}]`), // DOM element
 
-                // size
+                // style
                 aspectRatio: '1280/768', // CSS aspect ratio of each slide
 
-                // style
+                // animation
                 duration: .7, // second, slide change duration
                 offsetX: 23,
                 offsetY: 23,
@@ -87,6 +87,10 @@ class Slider{
                 zIndex: `${this.slideCount - index}`
             });
         });
+    }
+
+    update(options){
+        Object.assign(this.options, options);
     }
 
     select(index, direction = undefined){

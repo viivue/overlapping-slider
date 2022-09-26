@@ -34,3 +34,12 @@ document.querySelectorAll('[data-select]').forEach(button => {
         }
     });
 });
+
+// update
+const slider1 = OverlappingSlider.get('slider-1');
+slider1.update({
+    duration: .7, // second, slide change duration
+    offsetX: 40,
+    offsetY: 40,
+    scale: .2,
+});
