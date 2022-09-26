@@ -1,6 +1,6 @@
 import {log, setCSS, uniqueId, getNextIndex, getPreviousIndex, isGoingForward} from "./utils";
 import {getSlideByIndex} from "./helpers";
-import {slideBackward, slideForward} from "@/animation";
+import {slideBackward, slideForward} from "./animation";
 
 
 /**
