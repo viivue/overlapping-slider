@@ -21,6 +21,8 @@ export function slideForward(context, prevSlide, slide){
         top: '0',
         left: '0',
     }, 'showActiveSlide');
+
+    tl.duration(context.options.duration).play();
 }
 
 export function slideBackward(context, prevSlide, slide){
@@ -44,4 +46,6 @@ export function slideBackward(context, prevSlide, slide){
         left: '0',
         scale: 1,
     });
+
+    tl.duration(context.options.duration).play();
 }

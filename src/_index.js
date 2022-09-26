@@ -37,9 +37,10 @@ class Slider{
                 aspectRatio: '1280/768', // CSS aspect ratio of each slide
 
                 // style
+                duration: .7, // second, slide change duration
                 offsetX: 23,
                 offsetY: 23,
-                scale: .7,
+                scale: .85,
 
                 loop: true,
                 activeSlide: 0, // slide index
