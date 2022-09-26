@@ -1,4 +1,4 @@
-import {loopFromIndex, setCSS} from "@/utils";
+import {loopFromIndex, setCSS} from "./utils";
 
 export function getSlideByIndex(context, index){
     return context.slides[index];

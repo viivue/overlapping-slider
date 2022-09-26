@@ -1,5 +1,5 @@
 import {log, setCSS, uniqueId, getNextIndex, getPreviousIndex, isGoingForward} from "./utils";
-import {getSlideByIndex, setZIndex} from "@/helpers";
+import {getSlideByIndex, setZIndex} from "./helpers";
 
 
 /**
@@ -86,7 +86,6 @@ class Slider{
 
     select(index){
         this.direction = isGoingForward(this.currentIndex, index);
-        console.log('from', this.currentIndex, 'to', index, 'direction', this.direction)
         this.currentIndex = index;
 
         const slide = getSlideByIndex(this, index);
