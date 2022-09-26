@@ -1,5 +1,6 @@
-import {log, setCSS, uniqueId} from "./utils";
-import {getNextIndex, getPreviousIndex, getSlideByIndex} from "@/helpers";
+import {log, setCSS, uniqueId, getNextIndex, getPreviousIndex, isGoingForward} from "./utils";
+import {getSlideByIndex, setZIndex} from "@/helpers";
+
 
 /**
  * Private class Slider
@@ -75,61 +76,75 @@ class Slider{
                 position: 'absolute',
                 width: '100%',
                 height: '100%',
-                top: '0',
-                left: '0',
+                top: '20px',
+                left: '20px',
+                transformOrigin: 'top left',
+                zIndex: `${this.slideCount - index}`
             });
-
-            // animation CSS
-            if(index === this.options.activeSlide){
-                this.select(index);
-            }else{
-                this.deSelect(index);
-            }
         });
     }
 
     select(index){
+        this.direction = isGoingForward(this.currentIndex, index);
+        console.log('from', this.currentIndex, 'to', index, 'direction', this.direction)
+        this.currentIndex = index;
+
         const slide = getSlideByIndex(this, index);
+        const prevSlide = this.direction
+            ? getSlideByIndex(this, getPreviousIndex(this.slideCount, this.currentIndex, this.options.loop))
+            : getSlideByIndex(this, getNextIndex(this.slideCount, this.currentIndex, this.options.loop));
 
         // active CSS
-        setCSS(slide, {
-            top: '0',
-            left: '0',
-            'z-index': '2'
-        })
-    }
+        const tl = gsap.timeline();
+        if(this.direction){
+            tl.addLabel('hidePrevSlide');
+            tl.set(prevSlide, {transformOrigin: 'top left'})
+            tl.to(prevSlide, {
+                top: '-20px',
+                left: '-20px',
+                scale: .7,
+                onComplete: () => setZIndex(this)
+            });
+            tl.addLabel('movePrevSlideToBack');
+            tl.to(prevSlide, {
+                top: '20px',
+                left: '20px',
+                scale: 1
+            });
 
-    deSelect(index){
-        const slide = getSlideByIndex(this, index);
+            tl.addLabel('showActiveSlide', 'movePrevSlideToBack');
+            tl.to(slide, {
+                top: '0',
+                left: '0',
+            }, 'showActiveSlide');
+        }else{
+            tl.addLabel('hidePrevSlide');
+            tl.to(prevSlide, {
+                top: '20px',
+                left: '20px',
+            });
 
-        // active CSS
-        setCSS(slide, {
-            top: '20px',
-            left: '20px',
-            'z-index': '1'
-        })
-    }
-
-    active(index){
-        this.slides.forEach((slide, i) => {
-            if(index === i){
-                this.select(i);
-            }else{
-                this.deSelect(i);
-            }
-        })
+            tl.addLabel('showActiveSlide', 'hidePrevSlide');
+            tl.to(slide, {
+                top: '-20px',
+                left: '-20px',
+                scale: .7,
+                onComplete: () => setZIndex(this)
+            }, 'showActiveSlide');
+            tl.to(slide, {
+                top: '0',
+                left: '0',
+                scale: 1,
+            });
+        }
     }
 
     next(){
-        this.currentIndex = getNextIndex(this);
-        console.log(this.currentIndex)
-        this.active(this.currentIndex);
+        this.select(getNextIndex(this.slideCount, this.currentIndex, this.options.loop));
     }
 
     previous(){
-        this.currentIndex = getPreviousIndex(this);
-        console.log(this.currentIndex)
-        this.active(this.currentIndex);
+        this.select(getPreviousIndex(this.slideCount, this.currentIndex, this.options.loop));
     }
 }
 

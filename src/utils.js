@@ -135,3 +135,20 @@ export function loopFromIndex(count, index, callback, isForward = true){
         }
     }
 }
+
+
+/**
+ * Check if index is going forward (not true if there is only 2 items)
+ * @param lastIndex
+ * @param newIndex
+ * @returns {boolean}
+ */
+export function isGoingForward(lastIndex, newIndex){
+    if(newIndex === 0){
+        return lastIndex !== 1;
+    }
+    if(lastIndex === 0){
+        return newIndex === 1;
+    }
+    return lastIndex < newIndex;
+}
