@@ -95,3 +95,43 @@ export function uniqueId(prefix = ''){
     return prefix + (+new Date()).toString(16) +
         (Math.random() * 100000000 | 0).toString(16);
 }
+
+
+export function getNextIndex(count, index, isLoop = true){
+    let newIndex = index + 1;
+
+    if(newIndex >= count){
+        if(isLoop){
+            newIndex = 0;
+        }else{
+            newIndex = count - 1;
+        }
+    }
+    return newIndex;
+}
+
+export function getPreviousIndex(count, index, isLoop = true){
+    let newIndex = index - 1;
+
+    if(newIndex < 0){
+        if(isLoop){
+            newIndex = count - 1;
+        }else{
+            newIndex = 0;
+        }
+    }
+
+    return newIndex;
+}
+
+export function loopFromIndex(count, index, callback, isForward = true){
+    let tempIndex = index;
+    for(let i = 0; i < count; i++){
+        callback(tempIndex, count);
+        if(isForward){
+            tempIndex = getNextIndex(count, tempIndex);
+        }else{
+            tempIndex = getPreviousIndex(count, tempIndex);
+        }
+    }
+}
