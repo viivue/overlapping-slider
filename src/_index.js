@@ -8,7 +8,9 @@ import {slideBackward, slideForward} from "./animation";
  */
 class Slider{
     constructor(options){
-        this._class = {};
+        this._class = {
+            enabled: `os-enabled`
+        };
         this._attr = {
             container: 'data-overlapping-slider'
         };
@@ -64,6 +66,9 @@ class Slider{
         this.slides = this.options.el.querySelectorAll(':scope > *');
         this.slideCount = this.slides.length;
         this.currentIndex = this.options.activeSlide;
+
+        // add enabled class
+        this.wrapper.classList.add(this._class.enabled);
     }
 
     setupCSS(){
