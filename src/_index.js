@@ -91,6 +91,7 @@ class Slider{
 
     update(options){
         Object.assign(this.options, options);
+        this.setupCSS();
     }
 
     select(index, direction = undefined){
