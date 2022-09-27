@@ -1,4 +1,4 @@
-import {log, setCSS, uniqueId, getNextIndex, getPreviousIndex, isGoingForward} from "./utils";
+import {log, setCSS, uniqueId, getNextIndex, getPreviousIndex, isGoingForward, isEmptyString} from "./utils";
 import {getSlideByIndex} from "./helpers";
 import {slideBackward, slideForward} from "./animation";
 
@@ -32,7 +32,9 @@ class Slider{
     setupData(){
         this.options = {
             ...{
-                // selectors
+                // init
+                id: uniqueId('slider-'),
+                selector: `[${this._attr.container}]`, // for window object only
                 el: document.querySelector(`[${this._attr.container}]`), // DOM element
 
                 // style
@@ -57,15 +59,16 @@ class Slider{
             return;
         }
 
-        this.id = this.options.el.getAttribute(this._attr.container);
-        if(!this.id){
-            this.id = uniqueId('slider-');
-        }
-
+        // wrapper
         this.wrapper = this.options.el;
         this.slides = this.options.el.querySelectorAll(':scope > *');
         this.slideCount = this.slides.length;
         this.currentIndex = this.options.activeSlide;
+
+        // id (priority: attribute > options > auto-generate)
+        const id = this.wrapper.getAttribute(this._attr.container);
+        this.id = id !== null && !isEmptyString(id) ? id : this.options.id;
+        this.wrapper.setAttribute(this._attr.container, this.id);
 
         // add enabled class
         this.wrapper.classList.add(this._class.enabled);
@@ -155,9 +158,15 @@ window.OverlappingSliderController = new OverlappingSliderController();
 window.OverlappingSlider = {
     // init new instances
     init: (options = {}) => {
-        const selector = options.selector || '[data-overlapping-slider]';
+        // init with element
+        const el = options.el;
+        if(el){
+            window.OverlappingSliderController.add(new Slider({el, ...options}));
+            return;
+        }
 
         // init with selector
+        const selector = options.selector || '[data-overlapping-slider]';
         document.querySelectorAll(selector).forEach(el => {
             window.OverlappingSliderController.add(new Slider({el, ...options}));
         });

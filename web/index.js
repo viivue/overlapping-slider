@@ -12,6 +12,10 @@ app.innerHTML = homeHtml;
  * Global init
  */
 OverlappingSlider.init();
+OverlappingSlider.init({
+    id: 'slider-2',
+    el: document.querySelector('.slider'),
+});
 
 /**
  * Demo methods
