@@ -9,7 +9,8 @@ import {slideBackward, slideForward} from "./animation";
 class Slider{
     constructor(options){
         this._class = {
-            enabled: `os-enabled`
+            enabled: `os-enabled`,
+            active: 'os-active'
         };
         this._attr = {
             container: 'data-overlapping-slider'
@@ -118,6 +119,15 @@ class Slider{
         }else{
             slideBackward(this, prevSlide, slide);
         }
+
+        // add active class
+        this.slides.forEach((item, i) => {
+            if(i === this.currentIndex){
+                item.classList.add(this._class.active);
+            }else{
+                item.classList.remove(this._class.active);
+            }
+        });
     }
 
     next(){
