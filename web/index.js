@@ -73,6 +73,6 @@ slider3.update({
 const slider4 = OverlappingSlider.get('slider-4');
 slider4.update({
     onChange: data => {
-        //console.log(data.currentIndex,data.action)
+        //console.log(data.currentIndex, data.action)
     }
 });
