@@ -1,6 +1,7 @@
 import {log, setCSS, uniqueId, getNextIndex, getPreviousIndex, isGoingForward, isEmptyString} from "./utils";
-import {checkAutoplay, getSlideByIndex} from "./helpers";
+import {getSlideByIndex} from "./helpers";
 import {slideBackward, slideForward} from "./animation";
+import {checkAutoplay, runAutoplay} from "./autoplay";
 
 
 /**
@@ -54,7 +55,10 @@ class Slider{
                 activeSlide: 0, // slide index
 
                 // events
-                //onBeforeInit: (data) => {},
+                onPause: (data) => {
+                },
+                onPlay: (data) => {
+                },
             }, ...this.originalOptions
         };
 
@@ -77,6 +81,8 @@ class Slider{
         // autoplay (priority: attribute > options)
         this.autoplaySpeed = 3; // second
         this.isAutoplay = false;
+        this.autoplayInterval = undefined;
+        this.isPlay = true;
         checkAutoplay(this);
 
         // add enabled class
@@ -136,6 +142,9 @@ class Slider{
                 item.classList.remove(this._class.active);
             }
         });
+
+        // autoplay
+        runAutoplay(this);
     }
 
     next(){
@@ -144,6 +153,22 @@ class Slider{
 
     previous(){
         this.select(getPreviousIndex(this.slideCount, this.currentIndex, this.options.loop), false);
+    }
+
+    pause(){
+        this.isPlay = false;
+        clearTimeout(this.autoplayInterval);
+
+        // event
+        this.options.onPause(this);
+    }
+
+    play(){
+        this.isPlay = true;
+        runAutoplay(this);
+
+        // event
+        this.options.onPlay(this);
     }
 }
 
