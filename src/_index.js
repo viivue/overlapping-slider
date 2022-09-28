@@ -2,6 +2,7 @@ import {log, setCSS, uniqueId, getNextIndex, getPreviousIndex, isGoingForward, i
 import {getSlideByIndex} from "./helpers";
 import {slideBackward, slideForward} from "./animation";
 import {checkAutoplay, runAutoplay} from "./autoplay";
+import {initSwipe} from "@/swipe";
 
 
 /**
@@ -15,7 +16,8 @@ class Slider{
         };
         this._attr = {
             container: 'data-overlapping-slider',
-            autoplay: 'data-os-autoplay'
+            autoplay: 'data-os-autoplay',
+            swipe: 'data-os-swipe'
         };
 
         // save options
@@ -30,6 +32,9 @@ class Slider{
         this.setupData();
         this.setupCSS();
         this.select(this.options.activeSlide);
+
+        // swipe
+        initSwipe(this);
     }
 
     setupData(){
@@ -50,6 +55,7 @@ class Slider{
                 scale: .85,
 
                 // control
+                swipe: false, // require Hammer.js
                 autoplay: false, // boolean or number
                 loop: true,
                 activeSlide: 0, // slide index
@@ -84,6 +90,11 @@ class Slider{
         this.autoplayInterval = undefined;
         this.isPlay = true;
         checkAutoplay(this);
+
+        // swipe (priority: attribute > options)
+        if(this.wrapper.hasAttribute(this._attr.swipe)){
+            this.options.swipe = true;
+        }
 
         // add enabled class
         this.wrapper.classList.add(this._class.enabled);
