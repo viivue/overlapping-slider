@@ -55,6 +55,11 @@ body {
   &.blue {
     background-color: dodgerblue;
   }
+
+  &.disabled {
+    pointer-events: none;
+    opacity: .5;
+  }
 }
 
 .hidden {

@@ -27,6 +27,12 @@ document.querySelectorAll('[data-select]').forEach(button => {
         const slider = OverlappingSlider.get(id);
         const select = button.getAttribute('data-select');
         switch(select){
+            case 'pause':
+                slider.pause();
+                break;
+            case 'play':
+                slider.play();
+                break;
             case 'prev':
                 slider.previous();
                 break;
@@ -39,11 +45,26 @@ document.querySelectorAll('[data-select]').forEach(button => {
     });
 });
 
-// update
+// update slider 1
 const slider1 = OverlappingSlider.get('slider-1');
 slider1.update({
     duration: .7, // second, slide change duration
     offsetX: 40,
     offsetY: 40,
     scale: .2,
+});
+
+// update slider 3
+const slider3 = OverlappingSlider.get('slider-3');
+const slider3_pauseBtn = document.querySelector('[data-select="pause"][data-id="slider-3"]');
+const slider3_playBtn = document.querySelector('[data-select="play"][data-id="slider-3"]');
+slider3.update({
+    onPause: (data) => {
+        slider3_pauseBtn.classList.add('disabled');
+        slider3_playBtn.classList.remove('disabled');
+    },
+    onPlay: () => {
+        slider3_pauseBtn.classList.remove('disabled');
+        slider3_playBtn.classList.add('disabled');
+    }
 });
