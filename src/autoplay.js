@@ -29,7 +29,7 @@ export function runAutoplay(context){
         clearTimeout(context.autoplayInterval);
 
         context.autoplayInterval = setTimeout(() => {
-            context.next();
+            context.next({action: 'autoplay'});
         }, context.autoplaySpeed * 1000);
     }
 }

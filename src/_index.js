@@ -65,6 +65,8 @@ class Slider{
                 },
                 onPlay: (data) => {
                 },
+                onChange: (data) => {
+                }
             }, ...this.originalOptions
         };
 
@@ -98,6 +100,9 @@ class Slider{
 
         // add enabled class
         this.wrapper.classList.add(this._class.enabled);
+
+        // action
+        this.action = undefined;
     }
 
     setupCSS(){
@@ -124,14 +129,15 @@ class Slider{
     }
 
     update(options){
-        Object.assign(this.options, options);
-        this.setupCSS();
-        this.select(this.options.activeSlide);
+        Object.assign(this.originalOptions, options);
+
+        this.initialize();
     }
 
-    select(index, direction = undefined){
+    select(index, direction = undefined, action = undefined){
         this.direction = typeof direction === 'boolean' ? direction : isGoingForward(this.currentIndex, index);
         this.currentIndex = index;
+        this.action = action;
 
         const slide = getSlideByIndex(this, index);
         const prevSlide = this.direction
@@ -156,14 +162,17 @@ class Slider{
 
         // autoplay
         runAutoplay(this);
+
+        // event
+        this.options.onChange(this);
     }
 
-    next(){
-        this.select(getNextIndex(this.slideCount, this.currentIndex, this.options.loop), true);
+    next({action = 'default'} = {}){
+        this.select(getNextIndex(this.slideCount, this.currentIndex, this.options.loop), true, action);
     }
 
-    previous(){
-        this.select(getPreviousIndex(this.slideCount, this.currentIndex, this.options.loop), false);
+    previous({action = 'default'} = {}){
+        this.select(getPreviousIndex(this.slideCount, this.currentIndex, this.options.loop), false, action);
     }
 
     pause(){

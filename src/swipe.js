@@ -10,8 +10,8 @@ export function initSwipe(context){
 
     // init swipe
     const hammer = new Hammer(context.wrapper, {});
-    hammer.on('swipeleft', () => context.next());
-    hammer.on('swiperight', () => context.previous());
+    hammer.on('swipeleft', () => context.next({action: 'swipe'}));
+    hammer.on('swiperight', () => context.previous({action: 'swipe'}));
 
     // update CSS
     setCSS(context.wrapper, {

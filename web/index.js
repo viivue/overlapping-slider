@@ -59,12 +59,20 @@ const slider3 = OverlappingSlider.get('slider-3');
 const slider3_pauseBtn = document.querySelector('[data-select="pause"][data-id="slider-3"]');
 const slider3_playBtn = document.querySelector('[data-select="play"][data-id="slider-3"]');
 slider3.update({
-    onPause: (data) => {
+    onPause: () => {
         slider3_pauseBtn.classList.add('disabled');
         slider3_playBtn.classList.remove('disabled');
     },
     onPlay: () => {
         slider3_pauseBtn.classList.remove('disabled');
         slider3_playBtn.classList.add('disabled');
+    }
+});
+
+// update slider 4
+const slider4 = OverlappingSlider.get('slider-4');
+slider4.update({
+    onChange: data => {
+        //console.log(data.currentIndex,data.action)
     }
 });
