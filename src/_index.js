@@ -1,5 +1,5 @@
 import {log, setCSS, uniqueId, getNextIndex, getPreviousIndex, isGoingForward, isEmptyString} from "./utils";
-import {getSlideByIndex} from "./helpers";
+import {checkAutoplay, getSlideByIndex} from "./helpers";
 import {slideBackward, slideForward} from "./animation";
 
 
@@ -13,7 +13,8 @@ class Slider{
             active: 'os-active'
         };
         this._attr = {
-            container: 'data-overlapping-slider'
+            container: 'data-overlapping-slider',
+            autoplay: 'data-os-autoplay'
         };
 
         // save options
@@ -47,6 +48,8 @@ class Slider{
                 offsetY: 23,
                 scale: .85,
 
+                // control
+                autoplay: false, // boolean or number
                 loop: true,
                 activeSlide: 0, // slide index
 
@@ -70,6 +73,11 @@ class Slider{
         const id = this.wrapper.getAttribute(this._attr.container);
         this.id = id !== null && !isEmptyString(id) ? id : this.options.id;
         this.wrapper.setAttribute(this._attr.container, this.id);
+
+        // autoplay (priority: attribute > options)
+        this.autoplaySpeed = 3; // second
+        this.isAutoplay = false;
+        checkAutoplay(this);
 
         // add enabled class
         this.wrapper.classList.add(this._class.enabled);
