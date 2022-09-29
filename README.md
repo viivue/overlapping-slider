@@ -84,26 +84,33 @@ OverlappingSlider.init({
 
 ## Options
 
+### HTML Attribute
+
+| Name                    | Type        | Default                     | Required | Description                                  |
+|-------------------------|-------------|-----------------------------|----------|----------------------------------------------|
+| el                      | DOM element | No                          | ❌        | Wrapper element                              |
+| selector                | string      | `[data-overlapping-slider]` | ❌        | CSS selector for wrapper elements            |
+
+
 ### Attribute options
 
 ### Selectors
 
-| Name             | Type        | Default                     | Required | Description                                  |
-|------------------|-------------|-----------------------------|----------|----------------------------------------------|
-| el               | DOM element | No                          | ❌        | Wrapper element                              |
-| selector         | string      | `[data-overlapping-slider]` | ❌        | CSS selector for wrapper elements            |
-| data-os-swipe    | string      | No                          | ❌        | Attribute name of swipe elements             |
-| data-os-autoplay | number      | No                          | ❌        | Pass a value to that data-attribute (second) |
+| Name                    | Type        | Default                     | Required | Description                                  |
+|-------------------------|-------------|-----------------------------|----------|----------------------------------------------|
+| el                      | DOM element | No                          | ❌        | Wrapper element                              |
+| selector                | string      | `[data-overlapping-slider]` | ❌        | CSS selector for wrapper elements            |
 
 
 ### HTML attributes
 
 Add these attributes on the wrapper element.
 
-| Attribute              | As for option | 
-|------------------------|---------------|
-| `data-os-autoplay="2`  | `autoplay: 2` |
-| `data-os-swipe`        | `swipe: true` | 
+| Attribute                   | As for option                        | Description                                |
+|-----------------------------|--------------------------------------|--------------------------------------------|
+| `data-os-autoplay="2`       | `autoplay: 2`                        | Add autoplay option through html attribute |
+| `data-os-swipe`             | `swipe: true`                        | Add swipe option through html attribute    |
+| `data-overlapping-slider`   | `data-overlapping-slider="slider-1"` | Pass an specific id for each slider        |
 
 ### Options pass through instance
 
