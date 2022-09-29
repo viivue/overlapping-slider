@@ -120,6 +120,18 @@ Add these attributes on the instance when init.
 | `offsetY: 23`           | The deviation between active and normal slide (in vertical).   | 
 | `scale: .85`            | The zoom IN/OUT value when slide change.                       | 
 
+```js
+// demo
+
+OverlappingSlider.init({
+    el: document.querySelector('.overlapping-slider'),
+    swipe: true,
+    autoplay: 2,
+    duration: 0.7,
+    activeSlide: 1
+});
+```
+
 ## Events
 
 | Name                        | Description | 
