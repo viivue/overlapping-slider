@@ -96,10 +96,11 @@ OverlappingSlider.init({
 
 ### Selectors
 
-| Name                    | Type        | Default                     | Required | Description                                  |
-|-------------------------|-------------|-----------------------------|----------|----------------------------------------------|
-| el                      | DOM element | No                          | ❌        | Wrapper element                              |
-| selector                | string      | `[data-overlapping-slider]` | ❌        | CSS selector for wrapper elements            |
+| Name     | Type        | Default                     | Required | Description                       |
+|----------|-------------|-----------------------------|----------|-----------------------------------|
+| el       | DOM element | No                          | ❌        | Wrapper element                   |
+| selector | string      | `[data-overlapping-slider]` | ❌        | CSS selector for wrapper elements |
+| id       | string      | No                          | ❌        | Specific ID for each slider       |
 
 
 ### HTML attributes
