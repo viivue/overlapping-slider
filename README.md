@@ -159,7 +159,10 @@ Get the instance with JS init
 const options = {};
 OverlappingSlider.init(options);
 
+const slider = OverlappingSlider.get(id); // pass your slider id
+
 // use methods
+slider.pause();
 ```
 
 ## Deployment
