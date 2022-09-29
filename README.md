@@ -144,13 +144,14 @@ OverlappingSlider.init({
 
 > You can get **slider** from ***OverlappingSliderController.get( id )***
 
-| Name       | Usage                  | Description               | 
-|------------|------------------------|---------------------------|
-| `play`     | `slider.play()`        |                           |
-| `pause`    | `slider.pause()`       |                           |
-| `select`   | `slider.select(index)` | Select any slider item    |
-| `previous` | `slider.previous()`    | Go to the previous slider |
-| `next`     | `slider.next()`        | Go to the next slider     |
+| Name       | Usage                    | Description                                             | 
+|------------|--------------------------|---------------------------------------------------------|
+| `play`     | `slider.play()`          |                                                         |
+| `pause`    | `slider.pause()`         |                                                         |
+| `select`   | `slider.select(index)`   | Select any slider item                                  |
+| `previous` | `slider.previous()`      | Go to the previous slider                               |
+| `next`     | `slider.next()`          | Go to the next slider                                   |
+| `update`   | `slider.update(options)` | Pass an object to update the Overlapping Slider options |
 
 Get the instance with JS init
 
