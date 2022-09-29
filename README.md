@@ -47,6 +47,18 @@ Assume that we have the HTML like below
     <!-- Slider 4 -->
     <div style="background-color:midnightblue">4</div>
 </div>
+
+<!-- Custom HTML -->
+<div data-news-overlapping-slider>
+    <!-- Slider 1 -->
+    <div style="background-color:darkblue">1</div>
+    <!-- Slider 2 -->
+    <div style="background-color:darkgreen">2</div>
+    <!-- Slider 3 -->
+    <div style="background-color:darkslategray">3</div>
+    <!-- Slider 4 -->
+    <div style="background-color:midnightblue">4</div>
+</div>
 ```
 
 ```js
@@ -64,9 +76,9 @@ OverlappingSlider.init({
 
 // Or
 
-// We can get all elements that have attribute name "data-overlapping-slider"
+// We can get all elements that have attribute name "data-news-overlapping-slider"
 OverlappingSlider.init({
-    selector: '[data-overlapping-slider]'
+    selector: '[data-news-overlapping-slider]'
 });
 ```
 
