@@ -2,7 +2,7 @@ import {log, setCSS, uniqueId, getNextIndex, getPreviousIndex, isGoingForward, i
 import {getSlideByIndex} from "./helpers";
 import {slideBackward, slideForward} from "./animation";
 import {checkAutoplay, runAutoplay} from "./autoplay";
-import {initSwipe} from "@/swipe";
+import {initSwipe} from "./swipe";
 
 
 /**
@@ -12,7 +12,8 @@ class Slider{
     constructor(options){
         this._class = {
             enabled: `os-enabled`,
-            active: 'os-active'
+            active: 'os-active',
+            swipe: 'os-swipe',
         };
         this._attr = {
             container: 'data-overlapping-slider',

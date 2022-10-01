@@ -1,4 +1,4 @@
-import {isEmptyString} from "@/utils";
+import {isEmptyString} from "./utils";
 
 export function checkAutoplay(context){
     if(context.wrapper.hasAttribute(context._attr.autoplay)){
