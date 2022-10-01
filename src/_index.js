@@ -1,6 +1,8 @@
 import {log, setCSS, uniqueId, getNextIndex, getPreviousIndex, isGoingForward, isEmptyString} from "./utils";
 import {getSlideByIndex} from "./helpers";
 import {slideBackward, slideForward} from "./animation";
+import {checkAutoplay, runAutoplay} from "./autoplay";
+import {initSwipe} from "./swipe";
 
 
 /**
@@ -10,10 +12,13 @@ class Slider{
     constructor(options){
         this._class = {
             enabled: `os-enabled`,
-            active: 'os-active'
+            active: 'os-active',
+            swipe: 'os-swipe',
         };
         this._attr = {
-            container: 'data-overlapping-slider'
+            container: 'data-overlapping-slider',
+            autoplay: 'data-os-autoplay',
+            swipe: 'data-os-swipe'
         };
 
         // save options
@@ -28,6 +33,9 @@ class Slider{
         this.setupData();
         this.setupCSS();
         this.select(this.options.activeSlide);
+
+        // swipe
+        initSwipe(this);
     }
 
     setupData(){
@@ -47,11 +55,19 @@ class Slider{
                 offsetY: 23,
                 scale: .85,
 
+                // control
+                swipe: false, // require Hammer.js
+                autoplay: false, // boolean or number
                 loop: true,
                 activeSlide: 0, // slide index
 
                 // events
-                //onBeforeInit: (data) => {},
+                onPause: (data) => {
+                },
+                onPlay: (data) => {
+                },
+                onChange: (data) => {
+                }
             }, ...this.originalOptions
         };
 
@@ -71,8 +87,23 @@ class Slider{
         this.id = id !== null && !isEmptyString(id) ? id : this.options.id;
         this.wrapper.setAttribute(this._attr.container, this.id);
 
+        // autoplay (priority: attribute > options)
+        this.autoplaySpeed = 3; // second
+        this.isAutoplay = false;
+        this.autoplayInterval = undefined;
+        this.isPlay = true;
+        checkAutoplay(this);
+
+        // swipe (priority: attribute > options)
+        if(this.wrapper.hasAttribute(this._attr.swipe)){
+            this.options.swipe = true;
+        }
+
         // add enabled class
         this.wrapper.classList.add(this._class.enabled);
+
+        // action
+        this.action = undefined;
     }
 
     setupCSS(){
@@ -99,14 +130,15 @@ class Slider{
     }
 
     update(options){
-        Object.assign(this.options, options);
-        this.setupCSS();
-        this.select(this.options.activeSlide);
+        Object.assign(this.originalOptions, options);
+
+        this.initialize();
     }
 
-    select(index, direction = undefined){
+    select(index, direction = undefined, action = undefined){
         this.direction = typeof direction === 'boolean' ? direction : isGoingForward(this.currentIndex, index);
         this.currentIndex = index;
+        this.action = action;
 
         const slide = getSlideByIndex(this, index);
         const prevSlide = this.direction
@@ -128,14 +160,36 @@ class Slider{
                 item.classList.remove(this._class.active);
             }
         });
+
+        // autoplay
+        runAutoplay(this);
+
+        // event
+        this.options.onChange(this);
     }
 
-    next(){
-        this.select(getNextIndex(this.slideCount, this.currentIndex, this.options.loop), true);
+    next({action = 'default'} = {}){
+        this.select(getNextIndex(this.slideCount, this.currentIndex, this.options.loop), true, action);
     }
 
-    previous(){
-        this.select(getPreviousIndex(this.slideCount, this.currentIndex, this.options.loop), false);
+    previous({action = 'default'} = {}){
+        this.select(getPreviousIndex(this.slideCount, this.currentIndex, this.options.loop), false, action);
+    }
+
+    pause(){
+        this.isPlay = false;
+        clearTimeout(this.autoplayInterval);
+
+        // event
+        this.options.onPause(this);
+    }
+
+    play(){
+        this.isPlay = true;
+        runAutoplay(this);
+
+        // event
+        this.options.onPlay(this);
     }
 }
 
