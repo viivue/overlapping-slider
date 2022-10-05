@@ -9,7 +9,7 @@ module.exports = merge(common, {
     mode: 'production',
     devtool: false,
     output: {
-        path: paths.web,
+        path: paths.build,
         publicPath: '/',
         filename: 'js/[name].[contenthash].bundle.js',
     },
