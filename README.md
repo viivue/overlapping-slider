@@ -1,4 +1,4 @@
-# Overlapping Slider v0.0.1
+# Overlapping Slider
 
 ## Getting started
 
@@ -20,14 +20,10 @@ Using these HTML attributes to initialize without JavaScript.
 ```html
 <!-- No Js init -->
 <div data-overlapping-slider>
-    <!-- Slider 1 -->
-    <div style="background-color:darkblue">1</div>
-    <!-- Slider 2 -->
-    <div style="background-color:darkgreen">2</div>
-    <!-- Slider 3 -->
-    <div style="background-color:darkslategray">3</div>
-    <!-- Slider 4 -->
-    <div style="background-color:midnightblue">4</div>
+    <div>Slide 1</div>
+    <div>Slide 2</div>
+    <div>Slide 3</div>
+    <div>Slide 4</div>
 </div>
 ```
 
@@ -38,26 +34,18 @@ Assume that we have the HTML like below
 ```html
 <!-- Custom HTML -->
 <div data-overlapping-slider="slider-1">
-    <!-- Slider 1 -->
-    <div style="background-color:darkblue">1</div>
-    <!-- Slider 2 -->
-    <div style="background-color:darkgreen">2</div>
-    <!-- Slider 3 -->
-    <div style="background-color:darkslategray">3</div>
-    <!-- Slider 4 -->
-    <div style="background-color:midnightblue">4</div>
+    <div>Slide 1</div>
+    <div>Slide 2</div>
+    <div>Slide 3</div>
+    <div>Slide 4</div>
 </div>
 
 <!-- Custom HTML -->
-<div data-news-overlapping-slider>
-    <!-- Slider 1 -->
-    <div style="background-color:darkblue">1</div>
-    <!-- Slider 2 -->
-    <div style="background-color:darkgreen">2</div>
-    <!-- Slider 3 -->
-    <div style="background-color:darkslategray">3</div>
-    <!-- Slider 4 -->
-    <div style="background-color:midnightblue">4</div>
+<div data-custom-overlapping-slider>
+    <div>Slide 1</div>
+    <div>Slide 2</div>
+    <div>Slide 3</div>
+    <div>Slide 4</div>
 </div>
 ```
 
@@ -76,36 +64,18 @@ OverlappingSlider.init({
 
 // Or
 
-// We can get all elements that have attribute name "data-news-overlapping-slider"
+// We can get all elements that have attribute name "data-custom-overlapping-slider"
 OverlappingSlider.init({
-    selector: '[data-news-overlapping-slider]'
+    selector: '[data-custom-overlapping-slider]'
 });
 ```
 
 ## Options
 
-### HTML Attribute
-
-| Name                    | Type        | Default                     | Required | Description                                  |
-|-------------------------|-------------|-----------------------------|----------|----------------------------------------------|
-| el                      | DOM element | No                          | ❌        | Wrapper element                              |
-| selector                | string      | `[data-overlapping-slider]` | ❌        | CSS selector for wrapper elements            |
-
-
-### Attribute options
-
-### Selectors
-
-| Name     | Type        | Default                     | Required | Description                       |
-|----------|-------------|-----------------------------|----------|-----------------------------------|
-| el       | DOM element | No                          | ❌        | Wrapper element                   |
-| selector | string      | `[data-overlapping-slider]` | ❌        | CSS selector for wrapper elements |
-| id       | string      | No                          | ❌        | Specific ID for each slider       |
-
-
 ### HTML attributes
 
-Add these attributes on the wrapper element.
+Add these attributes on the wrapper element and always remember that setting by an attribute always override the setting
+by JS init().
 
 | Attribute                   | As for option                        | Description                                |
 |-----------------------------|--------------------------------------|--------------------------------------------|
@@ -113,20 +83,23 @@ Add these attributes on the wrapper element.
 | `data-os-swipe`             | `swipe: true`                        | Add swipe option through html attribute    |
 | `data-overlapping-slider`   | `data-overlapping-slider="slider-1"` | Pass an specific id for each slider        |
 
+### Attribute options
+
 ### Options pass through instance
 
 Add these attributes on the instance when init.
 
-| Attribute               | Description                                                    | 
-|-------------------------|----------------------------------------------------------------|
-| `swipe: true`           | Enable swipe option.                                           |
-| `autoplay: 2`           | Enable autoplay option with 2 seconds interval.                |
-| `aspect-ratio:1280/768` | Add aspect ratio for the slider item element.                  |
-| `duration: .7`          | Add duration for each animation (second).                      | 
-| `activeSlide: 0`        | The first active slide.                                        | 
-| `offsetX: 23`           | The deviation between active and normal slide (in horizontal). | 
-| `offsetY: 23`           | The deviation between active and normal slide (in vertical).   | 
-| `scale: .85`            | The zoom IN/OUT value when slide change.                       | 
+| Attribute               | Description                                                             | 
+|-------------------------|-------------------------------------------------------------------------|
+| `id: 'slider-1'`        | Assign a specific id for your slider to use Overlapping Slider methods. |
+| `swipe: true`           | Enable swipe option.                                                    |
+| `autoplay: 2`           | Enable autoplay option with 2 seconds interval.                         |
+| `aspect-ratio:1280/768` | Add aspect ratio for the slider item element.                           |
+| `duration: .7`          | Add duration for each animation (second).                               | 
+| `activeSlide: 0`        | The first active slide.                                                 | 
+| `offsetX: 23`           | The deviation between active and normal slide (in horizontal).          | 
+| `offsetY: 23`           | The deviation between active and normal slide (in vertical).            | 
+| `scale: .85`            | The zoom IN/OUT value when slide change.                                | 
 
 ```js
 // demo
@@ -142,20 +115,20 @@ OverlappingSlider.init({
 
 ## Events
 
-| Name                        | Description | 
-|-----------------------------|-------------|
-| `onPause: (data) => {}`     |             |
-| `onPlay: (data) => {}`      |             |
-| `onChange: (data,el) => {}` |             |
+| Name                        | Description                                                                            | 
+|-----------------------------|----------------------------------------------------------------------------------------|
+| `onPause: (data) => {}`     | Trigger after turning off the autoplay setting.                                        |
+| `onPlay: (data) => {}`      | Trigger after turning on the autoplay setting.                                         |
+| `onChange: (data,el) => {}` | When you call this event, your Overlapping Slider will re-initialize with new options. |
 
 ## Methods
 
-> You can get **slider** from ***OverlappingSliderController.get( id )***
+> You can get **slider** from ***OverlappingSlider.get( id )***
 
 | Name       | Usage                    | Description                                             | 
 |------------|--------------------------|---------------------------------------------------------|
-| `play`     | `slider.play()`          |                                                         |
-| `pause`    | `slider.pause()`         |                                                         |
+| `play`     | `slider.play()`          | Only for autoplay feature.                              |
+| `pause`    | `slider.pause()`         | Only for autoplay feature.                              |
 | `select`   | `slider.select(index)`   | Select any slider item                                  |
 | `previous` | `slider.previous()`      | Go to the previous slider                               |
 | `next`     | `slider.next()`          | Go to the next slider                                   |
