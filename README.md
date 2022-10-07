@@ -1,10 +1,17 @@
 # Overlapping Slider
 
+[![release](https://badgen.net/github/release/viivue/overlapping-slider/)](https://github.com/viivue/overlapping-slider/releases/latest)
+[![minified](https://badgen.net/badge/minified/6KB/cyan)](https://www.jsdelivr.com/package/gh/viivue/overlapping-slider)
+[![jsdelivr](https://data.jsdelivr.com/v1/package/gh/viivue/overlapping-slider/badge?style=rounded)](https://www.jsdelivr.com/package/gh/viivue/overlapping-slider)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/7f89c933-2c47-4a3f-b2ba-a32166f4f15d/deploy-status)](https://app.netlify.com/sites/overlapping-slider/deploys)
+
+> Demo: https://overlapping-slider.netlify.app
+
 ## Getting started
 
 ### Download
 
-👉 Self hosted - [Download latest release](https://github.com/viivue/overlapping-slider)
+👉 Self hosted - [Download the latest release](https://github.com/viivue/overlapping-slider)
 
 ## Initialize
 
@@ -99,7 +106,6 @@ Add these attributes on the instance when init.
 
 ```js
 // demo
-
 OverlappingSlider.init({
     el: document.querySelector('.overlapping-slider'),
     swipe: true,
