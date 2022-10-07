@@ -4,7 +4,7 @@
 
 ### Download
 
-👉 Self hosted - [Download latest release](https://github.com/viivue/easy-tab-accordion/releases/latest)
+👉 Self hosted - [Download latest release](https://github.com/viivue/overlapping-slider)
 
 ## Initialize
 
@@ -18,13 +18,12 @@ To initialize an Overlapping Slider script, we have 2 ways:
 Using these HTML attributes to initialize without JavaScript.
 
 ```html
-<!-- No Js init -->
+<!-- Init with HTML attribute -->
 <div data-overlapping-slider>
-    <div>Slide 1</div>
-    <div>Slide 2</div>
-    <div>Slide 3</div>
-    <div>Slide 4</div>
-</div>
+   <div>Slide 1</div>
+   <div>Slide 2</div>
+   <div>Slide 3</div>
+<div>
 ```
 
 ### With JavaScript
@@ -32,20 +31,17 @@ Using these HTML attributes to initialize without JavaScript.
 Assume that we have the HTML like below
 
 ```html
-<!-- Custom HTML -->
 <div data-overlapping-slider="slider-1">
     <div>Slide 1</div>
     <div>Slide 2</div>
     <div>Slide 3</div>
-    <div>Slide 4</div>
 </div>
 
-<!-- Custom HTML -->
+<!-- You can use another attribute name -->
 <div data-custom-overlapping-slider>
     <div>Slide 1</div>
     <div>Slide 2</div>
     <div>Slide 3</div>
-    <div>Slide 4</div>
 </div>
 ```
 
@@ -57,7 +53,7 @@ OverlappingSlider.init();
 
 // Or
 
-// select specific element
+// Select specific element
 OverlappingSlider.init({
     el:document.querySelector('[data-overlapping-slider="slider-1"]')
 });
@@ -115,11 +111,11 @@ OverlappingSlider.init({
 
 ## Events
 
-| Name                        | Description                                                                            | 
-|-----------------------------|----------------------------------------------------------------------------------------|
-| `onPause: (data) => {}`     | Trigger after turning off the autoplay setting.                                        |
-| `onPlay: (data) => {}`      | Trigger after turning on the autoplay setting.                                         |
-| `onChange: (data,el) => {}` | When you call this event, your Overlapping Slider will re-initialize with new options. |
+| Name                        | Description                                   | 
+|-----------------------------|-----------------------------------------------|
+| `onPause: (data) => {}`     | Fired after turning off the autoplay setting. |
+| `onPlay: (data) => {}`      | Fired after turning on the autoplay setting.  |
+| `onChange: (data,el) => {}` | Fired after changing between each slide.      |
 
 ## Methods
 
