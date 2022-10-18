@@ -19,7 +19,7 @@ class Slider{
             container: 'data-overlapping-slider',
             autoplay: 'data-os-autoplay',
             swipe: 'data-os-swipe',
-            pauseOnHover: 'data-os-pauseOnHover'
+            pauseOnHover: 'data-os-pause-on-hover'
         };
 
         // save options
@@ -104,9 +104,12 @@ class Slider{
         checkAutoplay(this);
 
         // pauseOnHover (priority: attribute > options)
-        if(this.wrapper.hasAttribute(this._attr.pauseOnHover)){
-            const isPauseOnHover = this.wrapper.getAttribute(this._attr.pauseOnHover).toLowerCase().trim();
-            this.options.pauseOnHover = isPauseOnHover === "true";
+        if(
+            this.wrapper.hasAttribute(this._attr.pauseOnHover)
+            && this.wrapper.getAttribute(this._attr.pauseOnHover).toLowerCase().trim() === 'false'
+        ){
+            // false when the data attribute is false
+            this.options.pauseOnHover = false;
         }
 
         // swipe (priority: attribute > options)

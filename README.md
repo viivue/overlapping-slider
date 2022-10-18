@@ -80,12 +80,12 @@ OverlappingSlider.init({
 Add these attributes on the wrapper element and always remember that setting by an attribute always override the setting
 by JS init().
 
-| Attribute                     | As for option                        | Description                                     |
-|-------------------------------|--------------------------------------|-------------------------------------------------|
-| `data-os-autoplay="2`         | `autoplay: 2`                        | Add autoplay option through html attribute      |
-| `data-os-pauseOnHover="true"` | `pauseOnHover: true"`                | Enable pauseOnHover feature (only for autoplay) |
-| `data-os-swipe`               | `swipe: true`                        | Add swipe option through html attribute         |
-| `data-overlapping-slider`     | `data-overlapping-slider="slider-1"` | Pass an specific id for each slider             |
+| Attribute                 | As for option                        | Description                                     |
+|---------------------------|--------------------------------------|-------------------------------------------------|
+| `data-os-autoplay="2`     | `autoplay: 2`                        | Add autoplay option through html attribute      |
+| `data-os-pause-on-hover   | `pauseOnHover: true"`                | Enable pauseOnHover feature (only for autoplay) |
+| `data-os-swipe`           | `swipe: true`                        | Add swipe option through html attribute         |
+| `data-overlapping-slider` | `data-overlapping-slider="slider-1"` | Pass an specific id for each slider             |
 
 ### Attribute options
 
