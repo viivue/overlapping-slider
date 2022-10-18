@@ -39,6 +39,16 @@ document.querySelectorAll('[data-select]').forEach(button => {
             case 'next':
                 slider.next();
                 break;
+            case 'remove-poh':
+                slider.update({
+                    pauseOnHover: false,
+                });
+                break;
+            case 'register-poh':
+                slider.update({
+                    pauseOnHover: true,
+                });
+                break;
             default:
                 slider.select(parseInt(select));
         }

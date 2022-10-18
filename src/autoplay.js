@@ -33,3 +33,21 @@ export function runAutoplay(context){
         }, context.autoplaySpeed * 1000);
     }
 }
+
+let handelMouseMove,
+    handleMouseOut;
+
+export function registerPauseOnHoverEvent(context){
+    if(context.isAutoplay && context.options.pauseOnHover){
+        handelMouseMove = context.pause.bind(context);
+        handleMouseOut = context.play.bind(context);
+
+        context.wrapper.addEventListener('mousemove', handelMouseMove);
+        context.wrapper.addEventListener('mouseout', handleMouseOut);
+    }
+}
+
+export function removePauseOnHoverEvent(context){
+    context.wrapper.removeEventListener('mousemove', handelMouseMove);
+    context.wrapper.removeEventListener('mouseout', handleMouseOut);
+}
