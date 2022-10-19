@@ -2,7 +2,7 @@
   "name": "overlapping-slider",
   "prettyName": "Overlapping Slider",
   "codeName": "OverlappingSlider",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Image slider with overlapping effect.",
   "homepage": "https://github.com/viivue/overlapping-slider",
   "repository": {
