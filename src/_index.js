@@ -1,7 +1,7 @@
 import {log, setCSS, uniqueId, getNextIndex, getPreviousIndex, isGoingForward, isEmptyString} from "./utils";
 import {getSlideByIndex} from "./helpers";
 import {slideBackward, slideForward} from "./animation";
-import {checkAutoplay, runAutoplay} from "./autoplay";
+import {checkAutoplay, registerPauseOnHoverEvent, removePauseOnHoverEvent, runAutoplay} from "./autoplay";
 import {initSwipe} from "./swipe";
 
 
@@ -18,7 +18,8 @@ class Slider{
         this._attr = {
             container: 'data-overlapping-slider',
             autoplay: 'data-os-autoplay',
-            swipe: 'data-os-swipe'
+            swipe: 'data-os-swipe',
+            pauseOnHover: 'data-os-pause-on-hover'
         };
 
         // save options
@@ -33,6 +34,11 @@ class Slider{
         this.setupData();
         this.setupCSS();
         this.select(this.options.activeSlide);
+
+        // add event pause on hover
+        if(this.isAutoplay && this.options.pauseOnHover){
+            registerPauseOnHoverEvent(this);
+        }
 
         // swipe
         initSwipe(this);
@@ -60,6 +66,9 @@ class Slider{
                 autoplay: false, // boolean or number
                 loop: true,
                 activeSlide: 0, // slide index
+
+                // pause on hover
+                pauseOnHover: true,
 
                 // events
                 onPause: (data) => {
@@ -93,6 +102,15 @@ class Slider{
         this.autoplayInterval = undefined;
         this.isPlay = true;
         checkAutoplay(this);
+
+        // pauseOnHover (priority: attribute > options)
+        if(
+            this.wrapper.hasAttribute(this._attr.pauseOnHover)
+            && this.wrapper.getAttribute(this._attr.pauseOnHover).toLowerCase().trim() === 'false'
+        ){
+            // false when the data attribute is false
+            this.options.pauseOnHover = false;
+        }
 
         // swipe (priority: attribute > options)
         if(this.wrapper.hasAttribute(this._attr.swipe)){
@@ -130,6 +148,10 @@ class Slider{
     }
 
     update(options){
+        if(this.isAutoplay && this.options.pauseOnHover){
+            removePauseOnHoverEvent(this);
+        }
+
         Object.assign(this.originalOptions, options);
 
         this.initialize();

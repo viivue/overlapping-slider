@@ -1,11 +1,11 @@
-import './styles/index.scss'
-import '@/_index'
+import './styles/index.scss';
+import '@/_index';
 import homeHtml from "./html/home.html";
 
 /**
  * Create HTML
  */
-const app = document.querySelector('#root')
+const app = document.querySelector('#root');
 app.innerHTML = homeHtml;
 
 /**
@@ -39,6 +39,20 @@ document.querySelectorAll('[data-select]').forEach(button => {
             case 'next':
                 slider.next();
                 break;
+            case 'remove-poh':
+                slider.update({
+                    pauseOnHover: false,
+                });
+                slider3_removePOH.style.display = 'none';
+                slider3_addPOH.style.display = 'block';
+                break;
+            case 'register-poh':
+                slider.update({
+                    pauseOnHover: true,
+                });
+                slider3_removePOH.style.display = 'block';
+                slider3_addPOH.style.display = 'none';
+                break;
             default:
                 slider.select(parseInt(select));
         }
@@ -58,6 +72,8 @@ slider1.update({
 const slider3 = OverlappingSlider.get('slider-3');
 const slider3_pauseBtn = document.querySelector('[data-select="pause"][data-id="slider-3"]');
 const slider3_playBtn = document.querySelector('[data-select="play"][data-id="slider-3"]');
+const slider3_removePOH = document.querySelector('[data-select="remove-poh"][data-id="slider-3"]');
+const slider3_addPOH = document.querySelector('[data-select="register-poh"][data-id="slider-3"]');
 slider3.update({
     onPause: () => {
         slider3_pauseBtn.classList.add('disabled');

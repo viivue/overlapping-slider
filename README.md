@@ -80,11 +80,12 @@ OverlappingSlider.init({
 Add these attributes on the wrapper element and always remember that setting by an attribute always override the setting
 by JS init().
 
-| Attribute                   | As for option                        | Description                                |
-|-----------------------------|--------------------------------------|--------------------------------------------|
-| `data-os-autoplay="2`       | `autoplay: 2`                        | Add autoplay option through html attribute |
-| `data-os-swipe`             | `swipe: true`                        | Add swipe option through html attribute    |
-| `data-overlapping-slider`   | `data-overlapping-slider="slider-1"` | Pass an specific id for each slider        |
+| Attribute                 | As for option                        | Description                                     |
+|---------------------------|--------------------------------------|-------------------------------------------------|
+| `data-os-autoplay="2`     | `autoplay: 2`                        | Add autoplay option through html attribute      |
+| `data-os-pause-on-hover   | `pauseOnHover: true"`                | Enable pauseOnHover feature (only for autoplay) |
+| `data-os-swipe`           | `swipe: true`                        | Add swipe option through html attribute         |
+| `data-overlapping-slider` | `data-overlapping-slider="slider-1"` | Pass an specific id for each slider             |
 
 ### Attribute options
 
@@ -97,6 +98,7 @@ Add these attributes on the instance when init.
 | `id: 'slider-1'`        | Assign a specific id for your slider to use Overlapping Slider methods. |
 | `swipe: true`           | Enable swipe option.                                                    |
 | `autoplay: 2`           | Enable autoplay option with 2 seconds interval.                         |
+| `pauseOnHover: true`    | Enable pauseOnHover feature (only for autoplay).                        |
 | `aspect-ratio:1280/768` | Add aspect ratio for the slider item element.                           |
 | `duration: .7`          | Add duration for each animation (second).                               | 
 | `activeSlide: 0`        | The first active slide.                                                 | 
