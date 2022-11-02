@@ -175,3 +175,9 @@ Build files from `./src` to `./dist` then publish to `npm`
 ```shell
 npm run publish
 ```
+
+## License
+
+[MIT License](https://github.com/viivue/overlapping-slider/blob/main/LICENSE)
+
+Copyright (c) 2022 ViiVue
